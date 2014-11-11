@@ -90,16 +90,16 @@ class Magento {
 		$connection = false;
 		try{
 			$wsdl = get_option('magento-api-wsdl');
-			error_log('wsdl: '.$wsdl);
+			//error_log('wsdl: '.$wsdl);
 			$client = self::getSoapClient($wsdl);
-			error_log('client: '.print_r($client,true));
+			//error_log('client: '.print_r($client,true));
 			try{
 				$username = get_option('magento-api-username');
-				error_log('user: '.$username);
+				//error_log('user: '.$username);
 				$apiKey = get_option('magento-api-key');
-				error_log('api: '.$apiKey);
+				//error_log('api: '.$apiKey);
 				$session = self::getSession($username, $apiKey, $client);
-				error_log('session: '.$session);
+				//error_log('session: '.$session);
 				$connection = true;
 			}catch(Exception $e){
 				$content .= __('Unable to login to host with that username/password combination.', 'pronamic-magento-plugin');
