@@ -394,8 +394,10 @@ class Magento {
 	 */
 	private static function getSoapClient($wsdl){		
 		if(!empty($wsdl)){
-			if(!isset(self::$soapClient)){			
+			if(!isset(self::$soapClient)){
+				error_log('--->pre getSoapClient');
 				self::$soapClient = new SoapClient($wsdl);
+				error_log('--->post getSoapClient');
 			}
 		}else{
 			_e('Please check your API settings, there seems to be something wrong with your WSDL setting.', 'pronamic-magento-plugin'); echo '<br />';
