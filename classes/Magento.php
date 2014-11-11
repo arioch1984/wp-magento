@@ -102,8 +102,6 @@ class Magento {
 				//error_log('session: '.$session);
 				$connection = true;
 			}catch(Exception $e){
-				$content .= print_r($e,true);
-				$content .= ' - '.gethostbyname('ideatattoo.boraso.net');
 				$content .= __('Unable to login to host with that username/password combination.', 'pronamic-magento-plugin');
 			}
 		}catch(Exception $e){
