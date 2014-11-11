@@ -90,10 +90,13 @@ class Magento {
 		$connection = false;
 		try{
 			$wsdl = get_option('magento-api-wsdl');
+			error_log('wsdl: '.$wsdl);
 			$client = self::getSoapClient($wsdl);
 			try{
 				$username = get_option('magento-api-username');
+				error_log('user: '.$username);
 				$apiKey = get_option('magento-api-key');
+				error_log('api: '.$apiKey);
 				$session = self::getSession($username, $apiKey, $client);				
 				$connection = true;
 			}catch(Exception $e){
