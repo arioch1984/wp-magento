@@ -102,9 +102,8 @@ class Magento {
 				//error_log('session: '.$session);
 				$connection = true;
 			}catch(Exception $e){
+				$content .= print_r($e,true);
 				$content .= __('Unable to login to host with that username/password combination.', 'pronamic-magento-plugin');
-				error_log('Catch');
-				error_log(print_r($e,true));
 			}
 		}catch(Exception $e){
 			$content .= __('Unable to connect to host.', 'pronamic-magento-plugin');
