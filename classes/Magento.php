@@ -92,6 +92,7 @@ class Magento {
 			$wsdl = get_option('magento-api-wsdl');
 			error_log('wsdl: '.$wsdl);
 			$client = self::getSoapClient($wsdl);
+			error_log('client: '.$client);
 			try{
 				$username = get_option('magento-api-username');
 				error_log('user: '.$username);
