@@ -103,6 +103,8 @@ class Magento {
 				$connection = true;
 			}catch(Exception $e){
 				$content .= __('Unable to login to host with that username/password combination.', 'pronamic-magento-plugin');
+				error_log('Catch');
+				error_log(print_r($e,true));
 			}
 		}catch(Exception $e){
 			$content .= __('Unable to connect to host.', 'pronamic-magento-plugin');
@@ -395,9 +397,9 @@ class Magento {
 	private static function getSoapClient($wsdl){		
 		if(!empty($wsdl)){
 			if(!isset(self::$soapClient)){
-				error_log('--->pre getSoapClient');
+				//error_log('--->pre getSoapClient');
 				self::$soapClient = new SoapClient($wsdl);
-				error_log('--->post getSoapClient');
+				//error_log('--->post getSoapClient');
 			}
 		}else{
 			_e('Please check your API settings, there seems to be something wrong with your WSDL setting.', 'pronamic-magento-plugin'); echo '<br />';
