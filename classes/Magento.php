@@ -398,7 +398,6 @@ class Magento {
 		if(!empty($wsdl)){
 			if(!isset(self::$soapClient)){
 				//error_log('--->pre getSoapClient');
-				libxml_disable_entity_loader(false);
 				self::$soapClient = new SoapClient($wsdl);
 				//error_log('--->post getSoapClient');
 			}
