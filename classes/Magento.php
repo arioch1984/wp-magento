@@ -97,7 +97,8 @@ class Magento {
 				error_log('user: '.$username);
 				$apiKey = get_option('magento-api-key');
 				error_log('api: '.$apiKey);
-				$session = self::getSession($username, $apiKey, $client);				
+				$session = self::getSession($username, $apiKey, $client);
+				error_log('session: '.$session);
 				$connection = true;
 			}catch(Exception $e){
 				$content .= __('Unable to login to host with that username/password combination.', 'pronamic-magento-plugin');
