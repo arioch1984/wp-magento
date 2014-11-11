@@ -91,6 +91,7 @@ class Magento {
 		try{
 			$wsdl = get_option('magento-api-wsdl');
 			//error_log('wsdl: '.$wsdl);
+			libxml_disable_entity_loader(false);
 			$client = self::getSoapClient($wsdl);
 			//error_log('client: '.print_r($client,true));
 			try{
