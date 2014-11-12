@@ -503,7 +503,8 @@ class Magento {
 
 					error_log('During getProductList without filters: ');
 					error_log(print_r($result,true));
-					error_log('with filter: '.$filter);
+					error_log('with filter: ');
+					error_log(print_r($filter,true));
 
 				}else{
 					$result = $client->call($session, 'catalog_product.list');
