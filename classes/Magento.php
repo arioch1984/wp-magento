@@ -498,7 +498,7 @@ class Magento {
 		
 		if(empty($result) && is_object($client)){
 			try{
-				if(!empty($filter)){
+				/*if(!empty($filter)){
 					$result = $client->call($session, 'catalog_product.list', array($filter));
 
 					error_log('During getProductList without filters: ');
@@ -506,14 +506,14 @@ class Magento {
 					error_log('with filter: ');
 					error_log(print_r($filter,true));
 
-				}else{
+				}else{*/
 					$result = $client->call($session, 'catalog_product.list');
 
 					/*error_log('During getProductList without filters: ');
 					error_log(print_r($result,true));*/
 
 					self::setAPICacheResults('magento-getProductList', $result);
-				}
+				//}
 			}catch(Exception $e){	}
 		}else{
 			return null;
