@@ -355,6 +355,9 @@ class Magento {
 		$result = '';
 		global $magento_products;
 		$magento_products = array();
+
+		error_log('getProductByID IDs: ');
+		error_log(print_r($productIds,true));
 		
 		foreach($productIds as $value){
 			// Clean up messy input.
@@ -456,6 +459,9 @@ class Magento {
 	public static function getProductByID($productId, $client, $session){
 		$result = '';
 		$result = self::getAPICacheResults('magento-CachedProduct'.$productId);
+
+		error_log('getProductByID pre calculated result: ');
+		error_log(print_r($result,true));
 		
 		if(empty($result) && is_object($client)){
 			try{
@@ -465,7 +471,10 @@ class Magento {
 		}else{
 			return null;
 		}
-		
+
+		error_log('getProductByID post calculated result: ');
+		error_log(print_r($result,true));
+
 		return $result;
 	}
 	
