@@ -117,7 +117,13 @@ class Magento {
 			
 			// Template
 			$template = self::getTemplate($templatemode);
-			
+
+			error_log('Pre API call data:');
+			error_log('atts: '.print_r($atts,true));
+			error_log('client: '.print_r($client,true));
+			error_log('session: '.$session);
+			error_log('max: '.$maxproducts);
+
 			$productIds = self::getProductIDsFromAtts($atts, $client, $session, $maxproducts);
 			if(!empty($productIds)){
 				$content .= self::getProductsByID($productIds, $client, $session, $url, $template);
