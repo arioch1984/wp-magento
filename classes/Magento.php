@@ -67,8 +67,8 @@ class Magento {
 			// End of outer output buffer. This could be saved to the cachefiles.
 			$bufferoutput = ob_get_clean();
 			$content .= $bufferoutput;
-			error_log('API call result: ');
-			error_log($content);
+			//error_log('API call result: ');
+			//error_log($content);
 			
 			if(get_option('magento-caching-option')){
 				$CC->storeCache($bufferoutput);
@@ -92,16 +92,16 @@ class Magento {
 		$connection = false;
 		try{
 			$wsdl = get_option('magento-api-wsdl');
-			//error_log('wsdl: '.$wsdl);
+			////error_log('wsdl: '.$wsdl);
 			$client = self::getSoapClient($wsdl);
-			//error_log('client: '.print_r($client,true));
+			////error_log('client: '.print_r($client,true));
 			try{
 				$username = get_option('magento-api-username');
-				//error_log('user: '.$username);
+				////error_log('user: '.$username);
 				$apiKey = get_option('magento-api-key');
-				//error_log('api: '.$apiKey);
+				////error_log('api: '.$apiKey);
 				$session = self::getSession($username, $apiKey, $client);
-				//error_log('session: '.$session);
+				////error_log('session: '.$session);
 				$connection = true;
 			}catch(Exception $e){
 				$content .= __('Unable to login to host with that username/password combination.', 'pronamic-magento-plugin');
@@ -118,16 +118,16 @@ class Magento {
 			// Template
 			$template = self::getTemplate($templatemode);
 
-			error_log('Pre API call data:');
-			error_log('atts: '.print_r($atts,true));
-			error_log('client: '.print_r($client,true));
-			error_log('session: '.$session);
-			error_log('max: '.$maxproducts);
+			//error_log('Pre API call data:');
+			//error_log('atts: '.print_r($atts,true));
+			//error_log('client: '.print_r($client,true));
+			//error_log('session: '.$session);
+			//error_log('max: '.$maxproducts);
 
 			$productIds = self::getProductIDsFromAtts($atts, $client, $session, $maxproducts);
 
-			error_log('Post API call IDs:');
-			error_log(print_r($productIds,true));
+			//error_log('Post API call IDs:');
+			//error_log(print_r($productIds,true));
 
 			if(!empty($productIds)){
 				$content .= self::getProductsByID($productIds, $client, $session, $url, $template);
@@ -407,9 +407,9 @@ class Magento {
 	private static function getSoapClient($wsdl){		
 		if(!empty($wsdl)){
 			if(!isset(self::$soapClient)){
-				//error_log('--->pre getSoapClient');
+				////error_log('--->pre getSoapClient');
 				self::$soapClient = new SoapClient($wsdl);
-				//error_log('--->post getSoapClient');
+				////error_log('--->post getSoapClient');
 			}
 		}else{
 			_e('Please check your API settings, there seems to be something wrong with your WSDL setting.', 'pronamic-magento-plugin'); echo '<br />';
@@ -493,24 +493,24 @@ class Magento {
 		$result = '';
 		$result = self::getAPICacheResults('magento-getProductList');
 
-		/*error_log('Pre getProductList: ');
-		error_log(print_r($result,true));*/
+		/*//error_log('Pre getProductList: ');
+		//error_log(print_r($result,true));*/
 		
 		if(empty($result) && is_object($client)){
 			try{
 				if(!empty($filter)){
 					$result = $client->call($session, 'catalog_product.list', array($filter));
 
-					error_log('During getProductList without filters: ');
-					error_log(print_r($result,true));
-					error_log('with filter: ');
-					error_log(print_r($filter,true));
+					/*//error_log('During getProductList without filters: ');
+					//error_log(print_r($result,true));
+					//error_log('with filter: ');
+					//error_log(print_r($filter,true));*/
 
 				}else{
 					$result = $client->call($session, 'catalog_product.list');
 
-					/*error_log('During getProductList without filters: ');
-					error_log(print_r($result,true));*/
+					/*//error_log('During getProductList without filters: ');
+					//error_log(print_r($result,true));*/
 
 					self::setAPICacheResults('magento-getProductList', $result);
 				}
@@ -519,8 +519,8 @@ class Magento {
 			return null;
 		}
 
-		/*error_log('Post getProductList: ');
-		error_log(print_r($result,true));*/
+		/*//error_log('Post getProductList: ');
+		//error_log(print_r($result,true));*/
 		
 		return $result;
 	}
