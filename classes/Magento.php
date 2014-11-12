@@ -133,6 +133,9 @@ class Magento {
 			if(!empty($productIds)){
 				$content .= self::getProductsByID($productIds, $client, $session, $url, $template);
 			}
+
+			error_log('Post API call Content:');
+			error_log(print_r($content,true));
 		}
 		return $content;
 	}
