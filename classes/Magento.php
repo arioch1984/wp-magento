@@ -493,8 +493,8 @@ class Magento {
 		$result = '';
 		$result = self::getAPICacheResults('magento-getProductList');
 
-		error_log('getProductList: ');
-		error_log(print_r($result,true));
+		/*error_log('Pre getProductList: ');
+		error_log(print_r($result,true));*/
 		
 		if(empty($result) && is_object($client)){
 			try{
@@ -502,6 +502,10 @@ class Magento {
 					$result = $client->call($session, 'catalog_product.list', array($filter));
 				}else{
 					$result = $client->call($session, 'catalog_product.list');
+
+					error_log('During getProductList without filters: ');
+					error_log(print_r($result,true));
+
 					self::setAPICacheResults('magento-getProductList', $result);
 				}
 			}catch(Exception $e){	}
@@ -509,7 +513,7 @@ class Magento {
 			return null;
 		}
 
-		/*error_log('getProductList: ');
+		/*error_log('Post getProductList: ');
 		error_log(print_r($result,true));*/
 		
 		return $result;
