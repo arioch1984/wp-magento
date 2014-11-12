@@ -500,11 +500,16 @@ class Magento {
 			try{
 				if(!empty($filter)){
 					$result = $client->call($session, 'catalog_product.list', array($filter));
-				}else{
-					$result = $client->call($session, 'catalog_product.list');
 
 					error_log('During getProductList without filters: ');
 					error_log(print_r($result,true));
+					error_log('with filter: '.$filter);
+
+				}else{
+					$result = $client->call($session, 'catalog_product.list');
+
+					/*error_log('During getProductList without filters: ');
+					error_log(print_r($result,true));*/
 
 					self::setAPICacheResults('magento-getProductList', $result);
 				}
