@@ -134,7 +134,7 @@ class Magento {
 			}
 
 			error_log('Post API call Content:');
-			error_log(print_r($content,true));
+			error_log($content);
 		}
 		return $content;
 	}
