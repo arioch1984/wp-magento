@@ -125,6 +125,10 @@ class Magento {
 			error_log('max: '.$maxproducts);
 
 			$productIds = self::getProductIDsFromAtts($atts, $client, $session, $maxproducts);
+
+			error_log('Post API call IDs:');
+			error_log(print_r($productIds,true));
+
 			if(!empty($productIds)){
 				$content .= self::getProductsByID($productIds, $client, $session, $url, $template);
 			}
