@@ -63,6 +63,7 @@ class Magento {
 			ob_start();
 			
 			$content .= self::getAPIResults($atts, $maxproducts, $templatemode);
+			sleep(5);
 			
 			// End of outer output buffer. This could be saved to the cachefiles.
 			$bufferoutput = ob_get_clean();
