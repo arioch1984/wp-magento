@@ -363,6 +363,9 @@ class Magento {
 			// Get product information and images from specified product ID.
 			$result = self::getProductByID($productId, $client, $session);
 			$images = self::getImagesByProductID($productId, $client, $session);
+
+			error_log('getProductByID: ');
+			error_log(print_r($result,true));
 			
 			// Build up the obtained information (if any) and pass them on in the $content variable which will be returned.
 			if($result){
