@@ -492,6 +492,9 @@ class Magento {
 	private static function getProductList($client, $session, $filter){
 		$result = '';
 		$result = self::getAPICacheResults('magento-getProductList');
+
+		error_log('getProductList: ');
+		error_log(print_r($result,true));
 		
 		if(empty($result) && is_object($client)){
 			try{
@@ -506,8 +509,8 @@ class Magento {
 			return null;
 		}
 
-		error_log('getProductList: ');
-		error_log(print_r($result,true));
+		/*error_log('getProductList: ');
+		error_log(print_r($result,true));*/
 		
 		return $result;
 	}
