@@ -60,15 +60,19 @@ class Magento {
 		// Only runs if no succesful cache call was made in any way.
 		if($runApiCalls){
 			// Output buffer, mostly there for caching
-			ob_start();
+			//ob_start();
 			
-			$content .= self::getAPIResults($atts, $maxproducts, $templatemode);
-			sleep(5);
+			//$content .= self::getAPIResults($atts, $maxproducts, $templatemode);
+			//sleep(5);
 			
 			// End of outer output buffer. This could be saved to the cachefiles.
-			$bufferoutput = ob_get_clean();
+			/*$bufferoutput = ob_get_clean();
+			$content .= $bufferoutput;*/
+
+			$bufferoutput = self::getAPIResults($atts, $maxproducts, $templatemode);
 			$content .= $bufferoutput;
-			error_log('API call result: ');
+
+				error_log('API call result: ');
 			error_log($content);
 			
 			if(get_option('magento-caching-option')){
