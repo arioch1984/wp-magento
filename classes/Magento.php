@@ -364,7 +364,7 @@ class Magento {
 			$result = self::getProductByID($productId, $client, $session);
 			$images = self::getImagesByProductID($productId, $client, $session);
 
-			error_log('getProductByID: ');
+			error_log('getProductByID object: ');
 			error_log(print_r($result,true));
 			
 			// Build up the obtained information (if any) and pass them on in the $content variable which will be returned.
@@ -399,6 +399,9 @@ class Magento {
 				$content .= __('Detected an error in the template file, actions have been interupted.', 'pronamic-magento-plugin');
 			}
 		}
+
+		error_log('getProductByID content: ');
+		error_log($content);
 	
 		return $content;
 	} // End of getProductByID($productId, $client, $session, $url, $template)
