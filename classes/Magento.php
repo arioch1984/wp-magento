@@ -590,9 +590,9 @@ class Magento {
 			if(empty($error)){
 				self::setAPICacheResults('magento-getProductListByIDs'.$cachename, $array);
 			}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $array;
 	}
