@@ -54,7 +54,7 @@ class Magento {
 				//$CC->storeCache('');
 				$content .= $CC->getCache();
 				$runApiCalls = false;
-				error_log('Magento stored cache:');
+				error_log('Magento previously stored cache:');
 				error_log($CC->getCache());
 			}catch(Exception $e){
 				error_log('Cache Error:');
@@ -76,7 +76,7 @@ class Magento {
 			error_log('API call result: ');
 			error_log($bufferoutput);
 			
-			if(get_option('magento-caching-option')){
+			if(!get_option('magento-caching-option')){
 				$CC->storeCache($bufferoutput);
 			}
 		}// End of API calls.
