@@ -60,7 +60,7 @@ class Magento {
 		// Only runs if no succesful cache call was made in any way.
 		if($runApiCalls){
 			// Output buffer, mostly there for caching
-			//ob_start();
+			ob_start();
 			
 			$content .= self::getAPIResults($atts, $maxproducts, $templatemode);
 			
