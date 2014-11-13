@@ -50,6 +50,7 @@ class Magento {
 			$CC = new Magento_Cache($atts, $maxproducts, self::CACHETIME);
 			
 			try{
+				$CC->storeCache('');
 				$content .= $CC->getCache();
 				$runApiCalls = false;
 			}catch(Exception $e){
@@ -66,7 +67,7 @@ class Magento {
 			
 			// End of outer output buffer. This could be saved to the cachefiles.
 			$bufferoutput = ob_get_clean();
-			//$content .= $bufferoutput;
+			$content .= $bufferoutput;
 			error_log('API call result: ');
 			error_log($bufferoutput);
 			
