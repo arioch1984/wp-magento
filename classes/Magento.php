@@ -482,9 +482,9 @@ class Magento {
 				$result = $client->call($session, 'catalog_product.info', $productId);
 				self::setAPICacheResults('magento-CachedProduct'.$productId, $result);
 			}catch(Exception $e){	}	
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 
 		error_log('getProductByID post calculated result: ');
 		error_log(print_r($result,true));
