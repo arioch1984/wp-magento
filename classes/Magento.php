@@ -50,7 +50,7 @@ class Magento {
 			$CC = new Magento_Cache($atts, $maxproducts, self::CACHETIME);
 			
 			try{
-				$CC->storeCache('');
+				//$CC->storeCache('');
 				$content .= $CC->getCache();
 				$runApiCalls = false;
 			}catch(Exception $e){
