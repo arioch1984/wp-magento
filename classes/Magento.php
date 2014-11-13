@@ -45,17 +45,27 @@ class Magento {
 		}
 		
 		// Will always run, unless caching has not been enabled. If any step in this proces fails, e.g.: Outdated cache or No cache found, we will run the API calls.
+		//error_log('Magento cache option value: '.get_option('magento-caching-option'));
 		if(get_option('magento-caching-option')){
 			// Create the class
 			$CC = new Magento_Cache($atts, $maxproducts, self::CACHETIME);
+			//error_log('Cache name: '.$CC->getCacheName());
 			
 			try{
+				//$CC->storeCache('');
 				$content .= $CC->getCache();
 				$runApiCalls = false;
+				//error_log('Magento previously stored cache:');
+				//error_log($CC->getCache());
 			}catch(Exception $e){
+				//error_log('Cache Error:');
+				//error_log(print_r($e,true));
+				$content = '';
 				$runApiCalls = true;
 			}
 		}
+
+		//error_log('RUN API? '.$runApiCalls);
 		
 		// Only runs if no succesful cache call was made in any way.
 		if($runApiCalls){
@@ -68,10 +78,14 @@ class Magento {
 			$bufferoutput = ob_get_clean();
 			$content .= $bufferoutput;
 			//error_log('API call result: ');
-			//error_log($content);
+			//error_log($bufferoutput);
 			
 			if(get_option('magento-caching-option')){
 				$CC->storeCache($bufferoutput);
+				//error_log('Magento just stored cache:');
+				//error_log($CC->getCache());
+				//error_log('compared with variable:');
+				//error_log($bufferoutput);
 			}
 		}// End of API calls.
 		
@@ -92,16 +106,16 @@ class Magento {
 		$connection = false;
 		try{
 			$wsdl = get_option('magento-api-wsdl');
-			////error_log('wsdl: '.$wsdl);
+			//error_log('wsdl: '.$wsdl);
 			$client = self::getSoapClient($wsdl);
-			////error_log('client: '.print_r($client,true));
+			//error_log('client: '.print_r($client,true));
 			try{
 				$username = get_option('magento-api-username');
-				////error_log('user: '.$username);
+				//error_log('user: '.$username);
 				$apiKey = get_option('magento-api-key');
-				////error_log('api: '.$apiKey);
+				//error_log('api: '.$apiKey);
 				$session = self::getSession($username, $apiKey, $client);
-				////error_log('session: '.$session);
+				//error_log('session: '.$session);
 				$connection = true;
 			}catch(Exception $e){
 				$content .= __('Unable to login to host with that username/password combination.', 'pronamic-magento-plugin');
@@ -132,6 +146,9 @@ class Magento {
 			if(!empty($productIds)){
 				$content .= self::getProductsByID($productIds, $client, $session, $url, $template);
 			}
+
+			//error_log('Post API call Content:');
+			//error_log($content);
 		}
 		return $content;
 	}
@@ -352,6 +369,9 @@ class Magento {
 		$result = '';
 		global $magento_products;
 		$magento_products = array();
+
+		//error_log('getProductByID IDs: ');
+		//error_log(print_r($productIds,true));
 		
 		foreach($productIds as $value){
 			// Clean up messy input.
@@ -360,6 +380,11 @@ class Magento {
 			// Get product information and images from specified product ID.
 			$result = self::getProductByID($productId, $client, $session);
 			$images = self::getImagesByProductID($productId, $client, $session);
+
+			//error_log('getProductByID object: ');
+			//error_log(print_r($result,true));
+			//error_log('getProductByID image: ');
+			//error_log(print_r($images,true));
 			
 			// Build up the obtained information (if any) and pass them on in the $content variable which will be returned.
 			if($result){
@@ -393,6 +418,9 @@ class Magento {
 				$content .= __('Detected an error in the template file, actions have been interupted.', 'pronamic-magento-plugin');
 			}
 		}
+
+		//error_log('getProductByID content: ');
+		//error_log($content);
 	
 		return $content;
 	} // End of getProductByID($productId, $client, $session, $url, $template)
@@ -407,9 +435,9 @@ class Magento {
 	private static function getSoapClient($wsdl){		
 		if(!empty($wsdl)){
 			if(!isset(self::$soapClient)){
-				////error_log('--->pre getSoapClient');
+				//error_log('--->pre getSoapClient');
 				self::$soapClient = new SoapClient($wsdl);
-				////error_log('--->post getSoapClient');
+				//error_log('--->post getSoapClient');
 			}
 		}else{
 			_e('Please check your API settings, there seems to be something wrong with your WSDL setting.', 'pronamic-magento-plugin'); echo '<br />';
@@ -447,16 +475,22 @@ class Magento {
 	public static function getProductByID($productId, $client, $session){
 		$result = '';
 		$result = self::getAPICacheResults('magento-CachedProduct'.$productId);
+
+		//error_log('getProductByID pre calculated result: ');
+		//error_log(print_r($result,true));
 		
 		if(empty($result) && is_object($client)){
 			try{
 				$result = $client->call($session, 'catalog_product.info', $productId);
 				self::setAPICacheResults('magento-CachedProduct'.$productId, $result);
 			}catch(Exception $e){	}	
-		}else{
+		}/*else{
 			return null;
-		}
-		
+		}*/
+
+		//error_log('getProductByID post calculated result: ');
+		//error_log(print_r($result,true));
+
 		return $result;
 	}
 	
@@ -476,9 +510,9 @@ class Magento {
 				$image = $client->call($session, 'product_media.list', $productId);
 				self::setAPICacheResults('magento-CachedImage'.$productId, $image);
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $image;
 	}
@@ -515,9 +549,9 @@ class Magento {
 					self::setAPICacheResults('magento-getProductList', $result);
 				}
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 
 		/*//error_log('Post getProductList: ');
 		//error_log(print_r($result,true));*/
@@ -558,9 +592,9 @@ class Magento {
 			if(empty($error)){
 				self::setAPICacheResults('magento-getProductListByIDs'.$cachename, $array);
 			}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $array;
 	}
@@ -580,9 +614,9 @@ class Magento {
 				$result = $client->call($session, 'catalog_category.tree');
 				self::setAPICacheResults('magento-getCategoryList', $result);
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $result;
 	}
@@ -605,9 +639,9 @@ class Magento {
 				$result = $client->call($session, 'category.assignedProducts', array($categoryID, $storeID));
 				self::setAPICacheResults('magento-getProductsByCategoryID', $result);
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $result;
 	}
@@ -636,11 +670,15 @@ class Magento {
 	private static function getAPICacheResults($cachename){
 		$result = '';
 		if(get_option('magento-caching-option')){
+			//error_log('getAPICacheResults cache name: '.$cachename);
 			$result = get_transient($cachename);
+			//error_log('getAPICacheResults: ');
+			//error_log(print_r($result,true));
 			if(!empty($result)){
 				return $result;
 			}
 		}
+
 		return '';
 	}
 	

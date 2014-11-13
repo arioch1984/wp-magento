@@ -22,7 +22,14 @@ class Magento_Cache {
 		$this->currentCacheName = $this->buildCacheNameFromAtts($atts, $maxproducts);
 		self::$CACHETIME = $cachetime;
 	}
-	
+
+	/**
+	 * Return cache name
+	 */
+	public function getCacheName(){
+		return $this->currentCacheName;
+	}
+
 	/**
 	 * Reads the cache file and return it in a string
 	 * 
@@ -35,6 +42,8 @@ class Magento_Cache {
 		}
 		$cache = '';
 		$cache = get_transient($this->currentCacheName);
+		//error_log('Cache value:');
+		//error_log($cache);
 		if(empty($cache)){
 			throw new Exception('Cache not found');
 		}
@@ -76,8 +85,12 @@ class Magento_Cache {
 	 */
 	public function storeCache($string){
 		try{
+			//error_log('storeCache storing '.$this->currentCacheName.' with value '.$string);
 			set_transient($this->currentCacheName, $string, self::$CACHETIME);
 			set_transient(self::$DEFAULTCACHENAME, '', self::$CACHETIME);
-		}catch(Exception $e){	}
+		}catch(Exception $e){
+			//error_log('soreCache error:');
+			//error_log(print_r($e,true));
+		}
 	}
 }
