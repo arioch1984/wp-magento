@@ -383,6 +383,8 @@ class Magento {
 
 			error_log('getProductByID object: ');
 			error_log(print_r($result,true));
+			error_log('getProductByID image: ');
+			error_log(print_r($images,true));
 			
 			// Build up the obtained information (if any) and pass them on in the $content variable which will be returned.
 			if($result){
