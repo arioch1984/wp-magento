@@ -671,7 +671,7 @@ class Magento {
 			error_log('getAPICacheResults cache name: '.$cachename);
 			$result = get_transient($cachename);
 			error_log('getAPICacheResults: ');
-			error_log($result);
+			error_log(print_r($result,true));
 			if(!empty($result)){
 				return $result;
 			}
