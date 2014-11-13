@@ -85,8 +85,12 @@ class Magento_Cache {
 	 */
 	public function storeCache($string){
 		try{
+			error_log('storeCache storing '.$this->currentCacheName.' with value '.$string);
 			set_transient($this->currentCacheName, $string, self::$CACHETIME);
 			set_transient(self::$DEFAULTCACHENAME, '', self::$CACHETIME);
-		}catch(Exception $e){	}
+		}catch(Exception $e){
+			error_log('soreCache error:');
+			error_log(print_r($e,true));
+		}
 	}
 }
