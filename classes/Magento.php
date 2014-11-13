@@ -673,6 +673,8 @@ class Magento {
 				return $result;
 			}
 		}
+		error_log('getAPICacheResults: ');
+		error_log($result);
 		return '';
 	}
 	
