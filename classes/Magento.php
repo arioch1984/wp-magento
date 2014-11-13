@@ -637,9 +637,9 @@ class Magento {
 				$result = $client->call($session, 'category.assignedProducts', array($categoryID, $storeID));
 				self::setAPICacheResults('magento-getProductsByCategoryID', $result);
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $result;
 	}
