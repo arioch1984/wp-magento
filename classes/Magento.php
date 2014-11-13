@@ -54,6 +54,8 @@ class Magento {
 				$content .= $CC->getCache();
 				$runApiCalls = false;
 			}catch(Exception $e){
+				error_log('Cache Error:');
+				error_log(print_r($e,true));
 				$runApiCalls = true;
 			}
 		}
