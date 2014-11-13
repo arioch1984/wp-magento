@@ -66,9 +66,9 @@ class Magento {
 			
 			// End of outer output buffer. This could be saved to the cachefiles.
 			$bufferoutput = ob_get_clean();
-			$content .= $bufferoutput;
+			//$content .= $bufferoutput;
 			error_log('API call result: ');
-			error_log($content);
+			error_log($bufferoutput);
 			
 			if(get_option('magento-caching-option')){
 				$CC->storeCache($bufferoutput);
