@@ -22,7 +22,14 @@ class Magento_Cache {
 		$this->currentCacheName = $this->buildCacheNameFromAtts($atts, $maxproducts);
 		self::$CACHETIME = $cachetime;
 	}
-	
+
+	/**
+	 * Return cache name
+	 */
+	public function getCacheName(){
+		return $this->currentCacheName;
+	}
+
 	/**
 	 * Reads the cache file and return it in a string
 	 * 

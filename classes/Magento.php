@@ -49,6 +49,7 @@ class Magento {
 		if(get_option('magento-caching-option')){
 			// Create the class
 			$CC = new Magento_Cache($atts, $maxproducts, self::CACHETIME);
+			error_log('Cache name: '.$CC->getCacheName());
 			
 			try{
 				//$CC->storeCache('');
