@@ -64,6 +64,8 @@ class Magento {
 				$runApiCalls = true;
 			}
 		}
+
+		error_log('RUN API? '.$runApiCalls);
 		
 		// Only runs if no succesful cache call was made in any way.
 		if($runApiCalls){
