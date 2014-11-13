@@ -46,7 +46,7 @@ class Magento {
 		
 		// Will always run, unless caching has not been enabled. If any step in this proces fails, e.g.: Outdated cache or No cache found, we will run the API calls.
 		error_log('Magento cache option value: '.get_option('magento-caching-option'));
-		if(get_option('magento-caching-option') == 1){
+		if(get_option('magento-caching-option')){
 			// Create the class
 			$CC = new Magento_Cache($atts, $maxproducts, self::CACHETIME);
 			
