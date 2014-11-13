@@ -668,13 +668,15 @@ class Magento {
 	private static function getAPICacheResults($cachename){
 		$result = '';
 		if(get_option('magento-caching-option')){
+			error_log('getAPICacheResults cache name: '.$cachename);
 			$result = get_transient($cachename);
+			error_log('getAPICacheResults: ');
+			error_log($result);
 			if(!empty($result)){
 				return $result;
 			}
 		}
-		error_log('getAPICacheResults: ');
-		error_log($result);
+
 		return '';
 	}
 	
