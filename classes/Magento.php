@@ -76,8 +76,12 @@ class Magento {
 			error_log('API call result: ');
 			error_log($bufferoutput);
 			
-			if(!get_option('magento-caching-option')){
+			if(get_option('magento-caching-option')){
 				$CC->storeCache($bufferoutput);
+				error_log('Magento just stored cache:');
+				error_log($CC->getCache());
+				error_log('compared with variable:');
+				error_log($bufferoutput);
 			}
 		}// End of API calls.
 		
