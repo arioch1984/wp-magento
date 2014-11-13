@@ -75,7 +75,7 @@ class Magento {
 			$bufferoutput = ob_get_clean();
 			$content .= $bufferoutput;
 			error_log('API call result: ');
-			error_log(print_r($bufferoutput,true));
+			error_log($bufferoutput);
 			
 			if(get_option('magento-caching-option')){
 				$CC->storeCache($bufferoutput);
