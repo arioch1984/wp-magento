@@ -42,6 +42,8 @@ class Magento_Cache {
 		}
 		$cache = '';
 		$cache = get_transient($this->currentCacheName);
+		error_log('Cache value:');
+		error_log($cache);
 		if(empty($cache)){
 			throw new Exception('Cache not found');
 		}
