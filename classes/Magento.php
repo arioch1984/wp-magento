@@ -54,6 +54,8 @@ class Magento {
 				//$CC->storeCache('');
 				$content .= $CC->getCache();
 				$runApiCalls = false;
+				error_log('Magento stored cache:');
+				error_log($CC->getCache());
 			}catch(Exception $e){
 				error_log('Cache Error:');
 				error_log(print_r($e,true));
