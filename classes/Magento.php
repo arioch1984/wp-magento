@@ -508,9 +508,9 @@ class Magento {
 				$image = $client->call($session, 'product_media.list', $productId);
 				self::setAPICacheResults('magento-CachedImage'.$productId, $image);
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $image;
 	}
@@ -547,9 +547,9 @@ class Magento {
 					self::setAPICacheResults('magento-getProductList', $result);
 				}
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 
 		/*error_log('Post getProductList: ');
 		error_log(print_r($result,true));*/
@@ -612,9 +612,9 @@ class Magento {
 				$result = $client->call($session, 'catalog_category.tree');
 				self::setAPICacheResults('magento-getCategoryList', $result);
 			}catch(Exception $e){	}
-		}else{
+		}/*else{
 			return null;
-		}
+		}*/
 		
 		return $result;
 	}
