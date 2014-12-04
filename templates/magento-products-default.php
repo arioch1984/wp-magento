@@ -16,11 +16,11 @@
  * @return String $content
  */?>
 
-<ul class="pronamic-magento-items-grid">
+<div class="row hidden-sm">
 
 	<?php while(magento_have_products()): ?>
 	
-	<li class="pronamic-magento-item">
+	<div class="col-md-6">
 		
 		<?php if(magento_has_image()): ?>
 			<a href="<?php magento_product_url(); ?>" target="_blank"><img src="<?php magento_product_thumbnail_url(); ?>" alt="" /></a>
@@ -36,8 +36,8 @@
 			<span class="pronamic-magento-price"><?php magento_product_price(); ?></span>
 		</span>
 
-	</li>
+	</div>
 
 	<?php endwhile; ?>
 
-</ul>
+</div>
