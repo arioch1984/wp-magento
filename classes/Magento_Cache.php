@@ -85,6 +85,8 @@ class Magento_Cache {
 	 */
 	public function storeCache($string){
 		try{
+			delete_transient($this->currentCacheName);
+			delete_transient(self::$DEFAULTCACHENAME);
 			//error_log('storeCache storing '.$this->currentCacheName.' with value '.$string);
 			set_transient($this->currentCacheName, $string, self::$CACHETIME);
 			set_transient(self::$DEFAULTCACHENAME, '', self::$CACHETIME);
