@@ -699,7 +699,7 @@ class Magento {
 	 */
 	private static function getTemplate($templatemode){
 		if(empty($templatemode)) $templatemode = 'default';
-		$templates = array('magento-products-'.$templatemode.'.php');
+		$templates = array('templates/magento-products-'.$templatemode.'.php');
 		error_log('Selected templates is: '.print_r($templates,true));
 		$template = locate_template($templates);
 		if(!$template){
