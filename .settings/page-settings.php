@@ -69,6 +69,9 @@
 				</th>
 				<td>
 					<input id="cache-time" name="magento-cache-time" value="<?php form_option('magento-cache-time'); ?>" type="text" class="regular-text" />
+					<span class="description">
+						<?php _e('s (seconds)', 'pronamic-magento-plugin') ?>
+					</span>
 				</td>
 			</tr>
 		</table>
