@@ -699,12 +699,12 @@ class Magento {
 	 */
 	private static function getTemplate($templatemode){
 		if(empty($templatemode)) $templatemode = 'default';
-		$templates = array('templates/magento-products-'.$templatemode.'.php');
+		$templates = array('magento-plugin-templates/magento-products-'.$templatemode.'.php');
 		error_log('Selected templates is: '.print_r($templates,true));
 		$template = locate_template($templates);
 		if(!$template){
 			if($templatemode != 'shortcode'){ // This is used for the collective custom widget template file.
-				$templates = array('magento-products-widget.php');
+				$templates = array('magento-plugin-templates/magento-products-widget.php');
 				$template = locate_template($templates);
 			}
 			if(!$template){
