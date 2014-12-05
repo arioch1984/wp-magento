@@ -702,6 +702,7 @@ class Magento {
 		$templates = array('magento-plugin-templates/magento-products-'.$templatemode.'.php');
 		error_log('Selected templates is: '.print_r($templates,true));
 		$template = locate_template($templates);
+		error_log('Template: '.$template);
 		if(!$template){
 			if($templatemode != 'shortcode'){ // This is used for the collective custom widget template file.
 				$templates = array('magento-plugin-templates/magento-products-widget.php');
