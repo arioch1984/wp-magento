@@ -11,7 +11,17 @@ class Magento {
 	const CACHETIME = 43200; // 12hrs (60*60*12);
 	//const CACHETIME = 300; // 5 minutes.
 	private static $soapClient;
-	private static $session;	
+	private static $session;
+
+	public static function getCacheTime(){
+		$settedCacheTime = get_option('magento-caching-option');
+		if(!empty($settedCacheTime)){
+			return $settedCacheTime;
+		}
+		else{
+			return CACHETIME;
+		}
+	}
 	
 	public static function addShortcode(){
 		add_shortcode('magento', array(__CLASS__, 'shortcode'));
@@ -48,7 +58,7 @@ class Magento {
 		//error_log('Magento cache option value: '.get_option('magento-caching-option'));
 		if(get_option('magento-caching-option')){
 			// Create the class
-			$CC = new Magento_Cache($atts, $maxproducts, self::CACHETIME);
+			$CC = new Magento_Cache($atts, $maxproducts, self::getCacheTime());
 			//error_log('Cache name: '.$CC->getCacheName());
 			
 			try{
@@ -655,7 +665,7 @@ class Magento {
 	 */
 	private static function setAPICacheResults($cachename, $result){
 		if(get_option('magento-caching-option')){
-			set_transient($cachename, $result, self::CACHETIME);
+			set_transient($cachename, $result, self::getCacheTime());
 			return true;
 		}
 		return false;

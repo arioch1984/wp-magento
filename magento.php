@@ -52,7 +52,7 @@ class Init {
 		register_setting('magento-api', 'magento-api-username');
 		register_setting('magento-api', 'magento-api-key');
 		register_setting('magento-api', 'magento-caching-option');
-		register_setting('magento-api', 'magento-caching-time');
+		register_setting('magento-api', 'magento-cache-time');
 		
 		// Currency Settings
 		register_setting('magento-currency', 'magento-currency-setting');

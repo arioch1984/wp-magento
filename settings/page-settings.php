@@ -63,6 +63,14 @@
 					</span></label>
 				</td>
 			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<label for="cache-time"><?php _e('Cache time', 'pronamic-magento-plugin') ?></label>
+				</th>
+				<td>
+					<input id="cache-time" name="magento-cache-time" value="<?php form_option('magento-cache-time'); ?>" type="text" class="regular-text" />
+				</td>
+			</tr>
 		</table>
 		<?php submit_button(); ?>
 	</form>
