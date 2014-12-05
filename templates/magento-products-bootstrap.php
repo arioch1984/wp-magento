@@ -33,7 +33,7 @@
 				</a></h2>
 
 		<span class="pronamic-magento-price-box">
-			<span class="pronamic-magento-price"><?php magento_product_price(); ?></span>
+			<span class="pronamic-magento-price"><?php magento_product_price(); ?> €</span>
 		</span>
 
 		</li>
