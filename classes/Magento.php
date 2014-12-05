@@ -700,7 +700,7 @@ class Magento {
 	private static function getTemplate($templatemode){
 		if(empty($templatemode)) $templatemode = 'default';
 		$templates = array('magento-products-'.$templatemode.'.php');
-		error_log('Selected template is: '.$templates);
+		error_log('Selected templates is: '.print_r($templates,true));
 		$template = locate_template($templates);
 		if(!$template){
 			if($templatemode != 'shortcode'){ // This is used for the collective custom widget template file.
