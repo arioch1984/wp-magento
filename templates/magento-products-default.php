@@ -16,28 +16,28 @@
  * @return String $content
  */?>
 
-<div class="row hidden-sm">
+<ul class="pronamic-magento-items-grid">
 
 	<?php while(magento_have_products()): ?>
-	
-	<div class="col-md-6">
-		
-		<?php if(magento_has_image()): ?>
-			<a href="<?php magento_product_url(); ?>" target="_blank"><img src="<?php magento_product_thumbnail_url(); ?>" alt="" /></a>
-		<?php else: ?>
-			<a href="<?php magento_product_url(); ?>" target="_blank"><span class="magento-no-image"></span></a>
-		<?php endif; ?>
-		
-		<h2><a href="<?php magento_product_url(); ?>" target="_blank">
-			<?php magento_product_title(); ?>
-		</a></h2>
-		
+
+		<li class="pronamic-magento-item">
+
+			<?php if(magento_has_image()): ?>
+				<a href="<?php magento_product_url(); ?>" target="_blank"><img src="<?php magento_product_thumbnail_url(); ?>" alt="" /></a>
+			<?php else: ?>
+				<a href="<?php magento_product_url(); ?>" target="_blank"><span class="magento-no-image"></span></a>
+			<?php endif; ?>
+
+			<h2><a href="<?php magento_product_url(); ?>" target="_blank">
+					<?php magento_product_title(); ?>
+				</a></h2>
+
 		<span class="pronamic-magento-price-box">
 			<span class="pronamic-magento-price"><?php magento_product_price(); ?></span>
 		</span>
 
-	</div>
+		</li>
 
 	<?php endwhile; ?>
 
-</div>
+</ul>
