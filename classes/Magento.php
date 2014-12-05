@@ -14,7 +14,7 @@ class Magento {
 	private static $session;
 
 	public static function getCacheTime(){
-		$settedCacheTime = get_option('magento-caching-option');
+		$settedCacheTime = get_option('magento-cache-option');
 		if(!empty($settedCacheTime)){
 			return $settedCacheTime;
 		}
