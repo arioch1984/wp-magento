@@ -380,6 +380,12 @@ class Magento {
 		global $magento_products;
 		$magento_products = array();
 
+        //
+        $storeView = null;
+        if(defined('ICL_LANGUAGE_CODE')){
+            $storeView = ICL_LANGUAGE_CODE;
+        }
+
 		//error_log('getProductByID IDs: ');
 		//error_log(print_r($productIds,true));
 		
@@ -388,7 +394,7 @@ class Magento {
 			$productId = strtolower(trim($value));
 			
 			// Get product information and images from specified product ID.
-			$result = self::getProductByID($productId, $client, $session);
+			$result = self::getProductByID($productId, $client, $session, $storeView);
 			$images = self::getImagesByProductID($productId, $client, $session);
 
 			//error_log('getProductByID object: ');
@@ -482,17 +488,17 @@ class Magento {
 	 * @param Object $client
 	 * @param String $session
 	 */
-	public static function getProductByID($productId, $client, $session){
+	public static function getProductByID($productId, $client, $session, $storeView){
 		$result = '';
-		$result = self::getAPICacheResults('magento-CachedProduct'.$productId);
+		$result = self::getAPICacheResults('magento-CachedProduct'.$productId.$storeView);
 
 		//error_log('getProductByID pre calculated result: ');
 		//error_log(print_r($result,true));
 		
 		if(empty($result) && is_object($client)){
 			try{
-				$result = $client->call($session, 'catalog_product.info', $productId);
-				self::setAPICacheResults('magento-CachedProduct'.$productId, $result);
+				$result = $client->call($session, 'catalog_product.info', array($productId, $storeView));
+				self::setAPICacheResults('magento-CachedProduct'.$productId.$storeView, $result);
 			}catch(Exception $e){	}	
 		}/*else{
 			return null;
@@ -578,7 +584,7 @@ class Magento {
 	 * @param Object $client
 	 * @param String $session
 	 */
-	private static function getProductListByIDs($productIds, $client, $session){
+	private static function getProductListByIDs($productIds, $client, $session, $storeView){
 		$result = '';
 		$array = array();
 		
@@ -587,20 +593,20 @@ class Magento {
 			$cachename .= $value;
 		}
 		
-		$array = self::getAPICacheResults('magento-getProductListByIDs'.$cachename);
+		$array = self::getAPICacheResults('magento-getProductListByIDs'.$cachename.$storeView);
 		
 		if(empty($array) && is_object($client)){
 			$error = '';
 			foreach($productIds as $productId){
 				try{
-					$result = $client->call($session, 'catalog_product.info', $productId);
+					$result = $client->call($session, 'catalog_product.info', array($productId, $storeView));
 					$array[] = $result;					
 				}catch(Exception $e){
 					$error .= 'An error occured <br />';
 				}
 			}
 			if(empty($error)){
-				self::setAPICacheResults('magento-getProductListByIDs'.$cachename, $array);
+				self::setAPICacheResults('magento-getProductListByIDs'.$cachename.$storeView, $array);
 			}
 		}/*else{
 			return null;
