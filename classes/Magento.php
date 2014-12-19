@@ -380,10 +380,16 @@ class Magento {
 		global $magento_products;
 		$magento_products = array();
 
+        // Check if base url ends correctly (with a /)
+        if($url[strlen($url)-1] != '/'){
+            $url .= '/';
+        }
+
         //
         $storeView = null;
         if(defined('ICL_LANGUAGE_CODE')){
             $storeView = ICL_LANGUAGE_CODE;
+            $url .= $storeView.'/';
         }
 
 		//error_log('getProductByID IDs: ');
@@ -408,12 +414,7 @@ class Magento {
 					unset($images);
 					$images = '';
 				}
-				
-				// Check if base url ends correctly (with a /)
-				if($url[strlen($url)-1] != '/'){
-					$url .= '/';
-				}
-				
+
 				// Adjust resul's url path
 				$result['url_path'] = $url . $result['url_path'];
 				
