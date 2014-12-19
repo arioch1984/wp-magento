@@ -339,6 +339,12 @@ class Magento {
 		$content = '';
 		$result = '';
 		global $magento_products;
+        $storeView = null;
+
+        //
+        if(defined('ICL_LANGUAGE_CODE')){
+            $storeView = 'ICL_LANGUAGE_CODE';
+        }
 		$magento_products = array();
 		
 		foreach($productIds as $value){
@@ -346,7 +352,7 @@ class Magento {
 			$productId = strtolower(trim($value));
 			
 			// Get product information and images from specified product ID.
-			$result = self::getProductByID($productId, $client, $session);
+			$result = self::getProductByID($productId, $client, $session, $storeView);
 			$images = self::getImagesByProductID($productId, $client, $session);
 			
 			// Build up the obtained information (if any) and pass them on in the $content variable which will be returned.
@@ -432,14 +438,14 @@ class Magento {
 	 * @param Object $client
 	 * @param String $session
 	 */
-	public static function getProductByID($productId, $client, $session){
+	public static function getProductByID($productId, $client, $session, $storeView){
 		$result = '';
-		$result = self::getAPICacheResults('magento-CachedProduct'.$productId);
+		$result = self::getAPICacheResults('magento-CachedProduct'.$productId.$storeView);
 		
 		if(empty($result) && is_object($client)){
 			try{
-				$result = $client->call($session, 'catalog_product.info', $productId);
-				self::setAPICacheResults('magento-CachedProduct'.$productId, $result);
+				$result = $client->call($session, 'catalog_product.info', array($productId, $storeView));
+				self::setAPICacheResults('magento-CachedProduct'.$productId.$storeView, $result);
 			}catch(Exception $e){	}	
 		}else{
 			return null;
@@ -506,29 +512,28 @@ class Magento {
 	 * @param Object $client
 	 * @param String $session
 	 */
-	private static function getProductListByIDs($productIds, $client, $session){
+	private static function getProductListByIDs($productIds, $client, $session, $storeView){
 		$result = '';
 		$array = array();
-		
 		$cachename = '';
 		foreach($productIds as $value){
 			$cachename .= $value;
 		}
 		
-		$array = self::getAPICacheResults('magento-getProductListByIDs'.$cachename);
+		$array = self::getAPICacheResults('magento-getProductListByIDs'.$cachename.$storeView);
 		
 		if(empty($array) && is_object($client)){
 			$error = '';
 			foreach($productIds as $productId){
 				try{
-					$result = $client->call($session, 'catalog_product.info', $productId);
+					$result = $client->call($session, 'catalog_product.info', arrary($productId, $storeView));
 					$array[] = $result;					
 				}catch(Exception $e){
 					$error .= 'An error occured <br />';
 				}
 			}
 			if(empty($error)){
-				self::setAPICacheResults('magento-getProductListByIDs'.$cachename, $array);
+				self::setAPICacheResults('magento-getProductListByIDs'.$cachename.$storeView, $array);
 			}
 		}else{
 			return null;
