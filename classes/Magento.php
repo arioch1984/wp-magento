@@ -343,7 +343,7 @@ class Magento {
 
         //
         if(defined('ICL_LANGUAGE_CODE')){
-            $storeView = 'ICL_LANGUAGE_CODE';
+            $storeView = ICL_LANGUAGE_CODE;
         }
 		$magento_products = array();
 		
