@@ -530,8 +530,16 @@ class Magento {
 		}/*else{
 			return null;
 		}*/
-		
-		return $image;
+
+		//only non excluded images
+		$ImgArray = array();
+		foreach($image as $ImageItem) {
+			if ($ImageItem['exclude'] == 0) {
+				$ImgArray[] = $ImageItem;
+			}
+		}
+
+		return $ImgArray;
 	}
 	
 	/**
