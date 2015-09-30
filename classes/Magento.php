@@ -531,10 +531,12 @@ class Magento {
 			return null;
 		}*/
 
-		//only non excluded images
+		//only images marked as 'image', 'thumbnail' or 'small_image'
+		$imageType = 'thumbnail';
+
 		$ImgArray = array();
 		foreach($image as $ImageItem) {
-			if ($ImageItem['exclude'] == 0) {
+			if (in_array($imageType,  $ImageItem['types'])) {
 				$ImgArray[] = $ImageItem;
 			}
 		}
